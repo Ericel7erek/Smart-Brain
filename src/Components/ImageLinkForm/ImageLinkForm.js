@@ -1,7 +1,7 @@
 import React from "react";
 import "./ImageLinkForm.css";
 
-const ImageLinkForm = ({ onInputChange, onButtonSubmit }) => {
+const ImageLinkForm = ({ onInputChange, onButtonSubmit, onSubmitReset }) => {
   return (
     <div>
       <p className="f3">
@@ -20,6 +20,7 @@ const ImageLinkForm = ({ onInputChange, onButtonSubmit }) => {
           >
             Detect
           </button>
+          <p className="f4 white">Please refresh after each try.</p>
         </div>
       </div>
     </div>
