@@ -20,7 +20,6 @@ const ImageLinkForm = ({ onInputChange, onButtonSubmit, onSubmitReset }) => {
           >
             Detect
           </button>
-          <p className="f4 white">Please refresh after each try.</p>
         </div>
       </div>
     </div>
