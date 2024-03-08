@@ -8,6 +8,8 @@ import Rank from "./Components/Rank/Rank";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import FaceRecognition from "./Components/FaceRecognition/FaceRecognition";
+import SignIn from "./Components/SignIn/SignIn";
+import Register from "./Components/Register/Register";
 
 class App extends Component {
   constructor() {
@@ -17,6 +19,8 @@ class App extends Component {
       input: "",
       imageUrl: "",
       box: [],
+      route: "SignIn",
+      isSignedIn: false,
     };
 
     this.particlesOptions = {
@@ -169,9 +173,18 @@ class App extends Component {
     });
     console.log("initialized");
   }
+onRouteChange = (route) => {
+  if (route === 'SignOut'){
+    this.setState({ isSignedIn: false });
+  }
+  else if (route === "home") {
+    this.setState({ isSignedIn: true });
+  }
+  {this.setState({route: route})}
+}
 
   render() {
-    const { init, imageUrl, box } = this.state;
+    const { init, imageUrl, box, route, isSignedIn } = this.state;
 
     return (
       <div className="App">
@@ -182,15 +195,18 @@ class App extends Component {
             options={this.particlesOptions}
           />
         )}
-        <Nav />
-        <Logo />
-        <Rank />
-        <ImageLinkForm
-          onInputChange={this.onInputChange}
-          onButtonSubmit={this.onButtonSubmit}
-          onSubmitReset={this.onSubmitReset}
-        />
-        <FaceRecognition box={box} imageUrl={imageUrl} />
+        <Nav isSignedIn={isSignedIn} onRouteChange={this.onRouteChange}/>
+        { route === "home" ?
+        <><Logo /><Rank /><ImageLinkForm
+        onInputChange={this.onInputChange}
+        onButtonSubmit={this.onButtonSubmit}
+        onSubmitReset={this.onSubmitReset} /><FaceRecognition box={box} imageUrl={imageUrl} /></>
+
+        
+        : (route === "SignIn"|| "SignOut")?
+        <SignIn onRouteChange={this.onRouteChange}/>
+        : <Register onRouteChange={this.onRouteChange} />
+        }
       </div>
     );
   }
